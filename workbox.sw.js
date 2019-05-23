@@ -7,7 +7,8 @@ const CACHE_LIST = [
   '/app.js',
   '/icon.png',
   '/manifest.json',
-  '/favicon.ico'
+  '/favicon.ico',
+  '/axios.min.js'
 ];
 
 if (workbox) {
@@ -20,11 +21,11 @@ else {
 workbox.precaching.precacheAndRoute(CACHE_LIST);
 
 workbox.routing.registerRoute(
-  /data/, // 匹配的路由
+  /cacheFirst/, // 匹配的路由
   workbox.strategies.cacheFirst()
 );
 
 workbox.routing.registerRoute(
-  /nochange/, // 匹配的路由
+  /networkOnly/, // 匹配的路由
   workbox.strategies.networkOnly()
 );

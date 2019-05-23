@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache_v' + 1.2;
+const CACHE_NAME = 'cache_v' + 1.5;
 const CACHE_LIST = [
   '/',
   '/index.html',
@@ -42,7 +42,7 @@ function clearCache() {
 self.addEventListener('activate', function (e) {
   e.waitUntil(
     Promise.all([
-      clearCache(),
+      // clearCache(),
       self.clients.claim(),
     ])
   );
@@ -61,7 +61,7 @@ self.addEventListener('fetch', function (event) {
       return cache.match(event.request).then(function (response) {
 
         // network only
-        if (/\/nochange\/|\/nochange\b/.test(event.request.url)) {
+        if (/\/networkOnly\/|\/networkOnly\b/.test(event.request.url)) {
           return fetch(event.request).then(function(response) {
             console.log('From Network', event.request.url, response);
             return response;

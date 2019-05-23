@@ -7,11 +7,11 @@ const router = new Router();
 
 app.use(koaStatic('.'));
 
-router.get('/data', (ctx, next) => {
+router.get('/cacheFirst', (ctx, next) => {
   return ctx.body = Date.now();
 });
 
-router.get('/nochange', (ctx, next) => {
+router.get('/networkOnly', (ctx, next) => {
   return ctx.body = ctx.body = Date.now();
 });
 

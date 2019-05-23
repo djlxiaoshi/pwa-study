@@ -1,6 +1,6 @@
 // 注册service worker
 window.addEventListener('load', function () {
-  navigator.serviceWorker.register('/sw.js', {scope: '/'})
+  navigator.serviceWorker.register('workbox.sw.js', {scope: '/'})
     .then(function (registration) {
 
       // 注册成功
@@ -15,23 +15,18 @@ window.addEventListener('load', function () {
 
 
 // 获取数据
-const dom1 = document.getElementById('change');
-
-
-// axios.get('/nochange').then(result => {
-//   console.log('post', result);
-// });
+const dom1 = document.getElementById('cacheFirst');
 
 function cacheFirst() {
-  axios.get('/data').then(response => {
+  axios.get('/cacheFirst').then(response => {
     dom1.innerText = response.data
   });
 }
 
-const dom2 = document.getElementById('nochange');
+const dom2 = document.getElementById('networkOnly');
 
 function networkOnly() {
-  axios.get('/nochange').then(response => {
+  axios.get('/networkOnly').then(response => {
     dom2.innerText = response.data
   });
 }
