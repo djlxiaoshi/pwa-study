@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache_v' + 1.5;
+const CACHE_NAME = 'cache_v' + 5.2;
 const CACHE_LIST = [
   '/',
   '/index.html',
@@ -23,7 +23,11 @@ self.addEventListener('install', function (event) {
   // 表示 只有waitUntil里面的promise都执行完毕后才会，安装成功
   event.waitUntil(
     // 如果上一个serviceWorker不销毁 需要手动skipWaiting()
-    preCache().then(skipWaiting)
+    Promise.all([
+      preCache(),
+      self.skipWaiting()
+    ])
+
   );
 });
 
@@ -42,17 +46,11 @@ function clearCache() {
 self.addEventListener('activate', function (e) {
   e.waitUntil(
     Promise.all([
-      // clearCache(),
-      self.clients.claim(),
+      clearCache(),
+      self.clients.claim()
     ])
   );
 });
-
-const strategies = {
-  getResponseFromNetwork (request) {
-    return fetch(request);
-  }
-};
 
 
 self.addEventListener('fetch', function (event) {
@@ -90,6 +88,50 @@ self.addEventListener('fetch', function (event) {
   );
 });
 
+self.addEventListener('message', function(event) {
+  console.log('这是来自页面的message消息', event.data);
+
+  sendNotify(event.data.title, {
+    body: event.data.msg
+  }, event);
+
+  postMessage({
+    type: '',
+    msg: '我是Service Worker'
+  })
+});
+
+function postMessage(data) {
+  self.clients.matchAll().then(clientList => {
+    clientList.forEach(client => {
+      // 当前激活的窗口发送消息
+      if (client.visibilityState === 'visible') {
+        client.postMessage(data);
+      }
+    })
+  })
+}
+
+// 发送 Notification 通知
+function sendNotify(title, options={}, event) {
+
+  if (Notification.permission !== 'granted') {
+    console.log('Not granted Notification permission.');
+
+    postMessage({
+      type: 'applyNotify'
+    })
+  } else {
+
+    // 在Service Worker 中 触发一条通知
+    self.registration.showNotification(title || 'Hi：', Object.assign({
+      body: '这是一个通知示例',
+      icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
+      requireInteraction: true
+    }, options));
+
+  }
 
 
 
+}

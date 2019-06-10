@@ -17,6 +17,6 @@ router.get('/networkOnly', (ctx, next) => {
 
 app.use(router.routes());
 
-app.listen(3000, function () {
-  console.log('app is listening on 3000')
+app.listen(3001, function () {
+  console.log('app is listening on 3001')
 });
