@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache_v' + 5.2;
+const CACHE_NAME = 'cache_v' + 1.0;
 const CACHE_LIST = [
   '/',
   '/index.html',
@@ -129,9 +129,6 @@ function sendNotify(title, options={}, event) {
       icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
       requireInteraction: true
     }, options));
-
   }
-
-
 
 }

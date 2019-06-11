@@ -6,6 +6,8 @@
 
 - sw.js: 自己写的Service Worker
 
-- workbox.sw.js: 基于workbox缓存策略库的Service Worker
+- workbox.sw.js: 基于workbox缓存策略库的Service Worker（在app.js中将sw.js替换成这个就行）
 
 - manifest.json 桌面图标配置文件
+
+- sw-study.js  参考的sw
