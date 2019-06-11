@@ -126,7 +126,7 @@ function sendNotify(title, options={}, event) {
     // 在Service Worker 中 触发一条通知
     self.registration.showNotification(title || 'Hi：', Object.assign({
       body: '这是一个通知示例',
-      icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
+      icon: '/icon.png',
       requireInteraction: true
     }, options));
   }

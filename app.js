@@ -54,7 +54,7 @@ function notifyMe(title, desc) {
     // If it's okay let's create a notification
     new Notification(title, {
       body: desc,
-      icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
+      icon: '/icon.png',
       requireInteraction: true
     });
   }
@@ -66,7 +66,7 @@ function notifyMe(title, desc) {
       if (permission === "granted") {
         new Notification(title, {
           body: desc,
-          icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
+          icon: '/icon.png',
           requireInteraction: true
         });
       } else {
